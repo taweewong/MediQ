@@ -1,1 +1,2 @@
 # MediQ
+This is mini project for Software Engineering subject of junior student at KMITL. MediQ is a queuing mobile application for Ladkrabang hospital. Objective of this application is for doing queue reservation when user are going to the hospital so they won't waste thier time for waiting a long time at hospital but there are still have some problem for this idea that is digital divide. Some people doesn't use any smart device or internet that may cause disadvantage for them to queuing.
