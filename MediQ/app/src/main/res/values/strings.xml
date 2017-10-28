@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">MediQ</string>
     <string name="mediq">MediQ</string>
-    <string name="login_description">ยินดีต้อนรับสู้ MediQ แอปพลิเคชันสำหรับจองคิวการรักษาภายในโรงพยาบาลลาดกระบัง กรุงเทพมหานคร</string>
+    <string name="login_description">ยินดีต้อนรับสู่ MediQ แอปพลิเคชันสำหรับจองคิวการรักษาภายในโรงพยาบาลลาดกระบัง กรุงเทพมหานคร</string>
     <string name="citizen_id_hint">หมายเลขบัตรประชาชน</string>
     <string name="password_hint">รหัสผ่าน</string>
     <string name="if_havnt_register">หากยังไม่ได้ลงทะเบียน</string>
     <string name="register_link">สมัคร</string>
     <string name="here">ที่นี่</string>
-    <string name="login">ลงชื่อเข้าใข้งาน</string>
+    <string name="login">ลงชื่อเข้าใช้งาน</string>
 </resources>
