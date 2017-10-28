@@ -4,19 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
     tools:context="com.nonggun.mediq.LoginActivity">
-
-    <ImageView
-        android:id="@+id/loginBackgroundImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:fitsSystemWindows="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg" />
 
     <TextView
         android:id="@+id/loginAppNameText"
@@ -67,6 +56,7 @@
         android:textSize="18sp"
         android:drawableStart="@drawable/ic_id"
         android:drawablePadding="16dp"
+        android:inputType="number"
         android:layout_marginEnd="28dp"
         android:layout_marginStart="28dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -91,6 +81,7 @@
         android:drawablePadding="16dp"
         android:layout_marginEnd="28dp"
         android:layout_marginStart="28dp"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/citizenIdEditText" />
