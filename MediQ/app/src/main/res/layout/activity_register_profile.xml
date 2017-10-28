@@ -89,4 +89,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumberLabelText" />
 
+    <Button
+        android:id="@+id/registerProfileNextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/next"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_green_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumberEditText" />
+
 </android.support.constraint.ConstraintLayout>
