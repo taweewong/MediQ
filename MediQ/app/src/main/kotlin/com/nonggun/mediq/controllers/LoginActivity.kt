@@ -1,7 +1,8 @@
-package com.nonggun.mediq
+package com.nonggun.mediq.controllers
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.nonggun.mediq.R
 
 class LoginActivity : AppCompatActivity() {
 
