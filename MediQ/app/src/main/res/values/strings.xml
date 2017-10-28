@@ -8,4 +8,8 @@
     <string name="register_link">สมัคร</string>
     <string name="here">ที่นี่</string>
     <string name="login">ลงชื่อเข้าใช้งาน</string>
+    <string name="register_profile_header">กรุณาใส่ข้อมูลส่วนตัว</string>
+    <string name="register_profile_des">\"กรุณากรอกหมายเลขบัตรประชาชน 13 หลัก และหมายเลขโทรศัพท์ที่เราใช้ติดต่อท่านได้\"</string>
+    <string name="citizen_id_label">หมายเลขบัตรประชาชน</string>
+    <string name="phone_number_label">หมายเลขโทรศัพท์</string>
 </resources>
