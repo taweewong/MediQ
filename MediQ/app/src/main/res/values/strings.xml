@@ -7,4 +7,5 @@
     <string name="if_havnt_register">หากยังไม่ได้ลงทะเบียน</string>
     <string name="register_link">สมัคร</string>
     <string name="here">ที่นี่</string>
+    <string name="login">ลงชื่อเข้าใข้งาน</string>
 </resources>
