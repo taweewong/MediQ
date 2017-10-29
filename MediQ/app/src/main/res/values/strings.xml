@@ -17,4 +17,9 @@
     <string name="register_name_des">\"กรุณากรอกชื่อจริงและนามสกุลจริงของท่าน เพื่อใช่ในการอ้างอิงกับประวัติผู้ป่วยของท่าน\"</string>
     <string name="first_name_label">ชื่อ</string>
     <string name="last_name_label">นามสกุล</string>
+    <string name="register_password_header">สร้างรหัสผ่าน</string>
+    <string name="register_password_des">\"สร้างรหัสผ่านสำหรับการลงชื่อเข้าใจงาน แอปพลิเคชันโดยมีความยาว 4\-8 ตัวอักษร\"</string>
+    <string name="password_label">รหัสผ่าน</string>
+    <string name="show_password_label">แสดงรหัสผ่าน</string>
+    <string name="confirm">ยืนยัน</string>
 </resources>
