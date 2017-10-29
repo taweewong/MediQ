@@ -13,4 +13,8 @@
     <string name="citizen_id_label">หมายเลขบัตรประชาชน</string>
     <string name="phone_number_label">หมายเลขโทรศัพท์</string>
     <string name="next">ต่อไป</string>
+    <string name="register_name_header">กรุณาใส่ชื่อของคุณ</string>
+    <string name="register_name_des">\"กรุณากรอกชื่อจริงและนามสกุลจริงของท่าน เพื่อใช่ในการอ้างอิงกับประวัติผู้ป่วยของท่าน\"</string>
+    <string name="first_name_label">ชื่อ</string>
+    <string name="last_name_label">นามสกุล</string>
 </resources>
