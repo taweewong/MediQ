@@ -19,7 +19,7 @@ class RegisterProfileActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.registerProfileNextButton -> openActivity(RegisterProfileActivity().javaClass)
+            R.id.registerProfileNextButton -> openActivity(RegisterNameActivity().javaClass)
         }
     }
 
