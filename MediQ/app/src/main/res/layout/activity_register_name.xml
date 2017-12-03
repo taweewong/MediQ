@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgGray"
-    tools:context="com.nonggun.mediq.controllers.register.RegisterNameActivity">
+    tools:context=".controllers.controllers.register.RegisterNameActivity">
 
     <TextView
         android:id="@+id/registerNameHeaderText"
@@ -48,6 +48,7 @@
         android:text="@string/first_name_label"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
+        android:labelFor="@+id/registerFirstNameEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerNameDesText" />
@@ -60,6 +61,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstNameLabelText" />
@@ -73,6 +75,7 @@
         android:text="@string/last_name_label"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
+        android:labelFor="@+id/registerLastNameEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerFirstNameEditText" />
@@ -85,6 +88,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:textColor="@android:color/white"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lastNameLabelText" />

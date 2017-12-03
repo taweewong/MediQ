@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgGray"
-    tools:context="com.nonggun.mediq.controllers.register.RegisterProfileActivity">
+    tools:context=".controllers.controllers.register.RegisterProfileActivity">
 
     <TextView
         android:id="@+id/registerProfileHeaderText"
@@ -48,6 +48,7 @@
         android:text="@string/citizen_id_label"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
+        android:labelFor="@+id/registerCitizenIdEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerProfileDesText" />
@@ -74,6 +75,7 @@
         android:text="@string/phone_number_label"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
+        android:labelFor="@+id/registerPhoneNumberEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerCitizenIdEditText" />
@@ -85,7 +87,7 @@
         android:layout_marginEnd="28dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
-        android:inputType="number"
+        android:inputType="phone"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
