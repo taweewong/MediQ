@@ -1,11 +1,11 @@
-package com.nonggun.mediq.controllers.controllers.login
+package com.nonggun.mediq.controllers.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.nonggun.mediq.R
-import com.nonggun.mediq.controllers.controllers.register.RegisterProfileActivity
+import com.nonggun.mediq.controllers.register.RegisterProfileActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {

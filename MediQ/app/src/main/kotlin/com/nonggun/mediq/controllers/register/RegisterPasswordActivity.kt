@@ -1,4 +1,4 @@
-package com.nonggun.mediq.controllers.controllers.register
+package com.nonggun.mediq.controllers.register
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
