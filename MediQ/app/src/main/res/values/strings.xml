@@ -27,4 +27,5 @@
     <string name="wait_time_label">เวลาที่รอ(ชั่วโมง)</string>
     <string name="available_queue_label">จำนวนคิวที่จองได้</string>
     <string name="current_queue_label">คิวปัจจุบัน</string>
+    <string name="error_load_previous_queue">ไม่สามารถโหลดจำนวนคิวก่อนหน้าได้</string>
 </resources>
