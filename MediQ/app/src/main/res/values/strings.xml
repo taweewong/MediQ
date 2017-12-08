@@ -22,4 +22,9 @@
     <string name="password_label">รหัสผ่าน</string>
     <string name="show_password_label">แสดงรหัสผ่าน</string>
     <string name="confirm">ยืนยัน</string>
+    <string name="previous_queue_label">จำนวนคิวก่อนหน้า</string>
+    <string name="press_to_queue">กดจองคิว</string>
+    <string name="wait_time_label">เวลาที่รอ(ชั่วโมง)</string>
+    <string name="available_queue_label">จำนวนคิวที่จองได้</string>
+    <string name="current_queue_label">คิวปัจจุบัน</string>
 </resources>
