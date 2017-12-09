@@ -19,6 +19,11 @@ class ClientQueueService(private val context: Context) {
         fun onGetCurrentInProgressQueueFailed(message: String)
     }
 
+    interface OnGetWaitTimeListener {
+        fun onGetWaitTimeSuccess(waitTime: String)
+        fun onGetWaitTimeFailed(message: String)
+    }
+
     companion object {
         private val CHILD_QUEUES = "queues"
         private val CHILD_QUEUE_NUMBER = "queueNumber"
@@ -45,9 +50,25 @@ class ClientQueueService(private val context: Context) {
             }
 
             override fun onCancelled(dataSnapshot: DatabaseError?) {
-                listener.onGetCurrentInProgressQueueFailed(context.getString(R.string.error_load_inprogress_queue))
+                listener.onGetCurrentInProgressQueueFailed(context.getString(R.string.error_load_in_progress_queue))
             }
         })
+    }
+
+    fun getWaitTime(listener: OnGetWaitTimeListener) {
+        databaseRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                listener.onGetWaitTimeSuccess(calculateWaitTime(dataSnapshot.childrenCount))
+            }
+
+            override fun onCancelled(dataSnapshot: DatabaseError?) {
+                listener.onGetWaitTimeFailed(context.getString(R.string.error_load_wait_time))
+            }
+        })
+    }
+
+    private fun calculateWaitTime(queueNumber: Long): String {
+        return String.format("%.2f", queueNumber.toFloat() * 15 / 60)
     }
 
     private fun getCurrentQueueFrom(dataSnapshot: DataSnapshot): String {
