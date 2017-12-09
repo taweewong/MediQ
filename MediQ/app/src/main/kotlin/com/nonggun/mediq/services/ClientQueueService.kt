@@ -21,7 +21,7 @@ class ClientQueueService(private val context: Context) {
 
     companion object {
         private val CHILD_QUEUES = "queues"
-        private val CHILD_QUEUE = "queue"
+        private val CHILD_QUEUE_NUMBER = "queueNumber"
     }
 
     private val databaseRef = FirebaseDatabase.getInstance().reference.child(CHILD_QUEUES)
@@ -54,7 +54,7 @@ class ClientQueueService(private val context: Context) {
         var currentInProgressQueue = context.getString(R.string.no_previous_queue)
 
         for (queueSnapshot in dataSnapshot.children) {
-            currentInProgressQueue = queueSnapshot.child(CHILD_QUEUE).getValue(String::class.java)
+            currentInProgressQueue = queueSnapshot.child(CHILD_QUEUE_NUMBER).getValue(Int::class.java).toString()
         }
 
         return currentInProgressQueue
