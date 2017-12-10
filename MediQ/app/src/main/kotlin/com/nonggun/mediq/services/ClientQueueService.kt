@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.nonggun.mediq.R
+import com.nonggun.mediq.models.Queue
 import com.nonggun.mediq.models.Queue.queueType.APPLICATION
 
 class ClientQueueService(private val context: Context) {
@@ -86,6 +87,11 @@ class ClientQueueService(private val context: Context) {
                         listener.onGetAvailableQueueNumberFailed(context.getString(R.string.error_load_available_queue))
                     }
                 })
+    }
+
+    fun addQueue(queue: Queue) {
+        val queueId = databaseRef.push().key
+        databaseRef.child(queueId).setValue(queue)
     }
 
     private fun calculateRemainQueue(applicationQueue: Int): Int {
