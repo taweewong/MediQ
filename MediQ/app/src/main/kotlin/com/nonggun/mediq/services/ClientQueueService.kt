@@ -9,39 +9,31 @@ import com.nonggun.mediq.R
 import com.nonggun.mediq.models.Queue
 import com.nonggun.mediq.models.Queue.queueType.APPLICATION
 
-class ClientQueueService(private val context: Context) {
+object ClientQueueService {
 
-    interface OnGetPreviousQueueNumberListener {
+    interface OnGetQueueDataListener {
         fun onGetPreviousQueueSuccess(previousQueueNumber: Int)
         fun onGetPreviousQueueFailed(message: String)
-    }
 
-    interface OnGetCurrentInProgressQueueListener {
         fun onGetCurrentInProgressQueueSuccess(currentInProgressQueue: String)
         fun onGetCurrentInProgressQueueFailed(message: String)
-    }
 
-    interface OnGetWaitTimeListener {
         fun onGetWaitTimeSuccess(waitTime: String)
         fun onGetWaitTimeFailed(message: String)
-    }
 
-    interface OnGetAvailableQueueNumberListener {
         fun onGetAvailableQueueNumberSuccess(availableQueueNumber: Int)
         fun onGetAvailableQueueNumberFailed(message: String)
     }
 
-    companion object {
-        private val CHILD_QUEUES = "queues"
-        private val CHILD_QUEUE_NUMBER = "queueNumber"
-        private val CHILD_TYPE = "type"
-        private val MAXIMUM_APPLICATION_QUEUE = 10
-    }
+    private val CHILD_QUEUES = "queues"
+    private val CHILD_QUEUE_NUMBER = "queueNumber"
+    private val CHILD_TYPE = "type"
+    private val MAXIMUM_APPLICATION_QUEUE = 10
 
     private val databaseRef = FirebaseDatabase.getInstance().reference.child(CHILD_QUEUES)
 
-    fun getPreviousQueueNumber(listener: OnGetPreviousQueueNumberListener) {
-        databaseRef.addValueEventListener(object : ValueEventListener {
+    fun getPreviousQueueNumber(context: Context, listener: OnGetQueueDataListener) {
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listener.onGetPreviousQueueSuccess(dataSnapshot.children.count())
             }
@@ -52,10 +44,10 @@ class ClientQueueService(private val context: Context) {
         })
     }
 
-    fun getCurrentInProgressQueue(listener: OnGetCurrentInProgressQueueListener) {
-        databaseRef.limitToFirst(1).addValueEventListener(object : ValueEventListener {
+    fun getCurrentInProgressQueue(context: Context, listener: OnGetQueueDataListener) {
+        databaseRef.limitToFirst(1).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listener.onGetCurrentInProgressQueueSuccess(getCurrentQueueFrom(dataSnapshot))
+                listener.onGetCurrentInProgressQueueSuccess(getCurrentInProgressQueueFromSnapshot(context, dataSnapshot))
             }
 
             override fun onCancelled(dataSnapshot: DatabaseError?) {
@@ -64,8 +56,8 @@ class ClientQueueService(private val context: Context) {
         })
     }
 
-    fun getWaitTime(listener: OnGetWaitTimeListener) {
-        databaseRef.addValueEventListener(object : ValueEventListener{
+    fun getWaitTime(context: Context, listener: OnGetQueueDataListener) {
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listener.onGetWaitTimeSuccess(calculateWaitTime(dataSnapshot.childrenCount.toDouble()))
             }
@@ -76,10 +68,11 @@ class ClientQueueService(private val context: Context) {
         })
     }
 
-    fun getAvailableQueueNumber(listener: OnGetAvailableQueueNumberListener) {
-        databaseRef.orderByChild(CHILD_TYPE).equalTo(APPLICATION.name).addValueEventListener(object : ValueEventListener{
+    fun getAvailableQueueNumber(context: Context, listener: OnGetQueueDataListener) {
+        databaseRef.orderByChild(CHILD_TYPE).equalTo(APPLICATION.name)
+                .addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val availableQueue = calculateRemainQueue(dataSnapshot.children.count())
+                        val availableQueue = calculateRemainAvailableQueue(dataSnapshot.children.count())
                         listener.onGetAvailableQueueNumberSuccess(availableQueue)
                     }
 
@@ -94,7 +87,7 @@ class ClientQueueService(private val context: Context) {
         databaseRef.child(queueId).setValue(queue)
     }
 
-    private fun calculateRemainQueue(applicationQueue: Int): Int {
+    private fun calculateRemainAvailableQueue(applicationQueue: Int): Int {
         return MAXIMUM_APPLICATION_QUEUE - applicationQueue
     }
 
@@ -104,7 +97,7 @@ class ClientQueueService(private val context: Context) {
         return String.format("%.2f", hour + minute)
     }
 
-    private fun getCurrentQueueFrom(dataSnapshot: DataSnapshot): String {
+    private fun getCurrentInProgressQueueFromSnapshot(context: Context, dataSnapshot: DataSnapshot): String {
         var currentInProgressQueue = context.getString(R.string.no_previous_queue)
 
         for (queueSnapshot in dataSnapshot.children) {
