@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.nonggun.mediq.R
-import com.nonggun.mediq.models.Queue.queueType.*
+import com.nonggun.mediq.models.Queue.queueType.APPLICATION
 
 class ClientQueueService(private val context: Context) {
 
@@ -66,7 +66,7 @@ class ClientQueueService(private val context: Context) {
     fun getWaitTime(listener: OnGetWaitTimeListener) {
         databaseRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listener.onGetWaitTimeSuccess(calculateWaitTime(dataSnapshot.childrenCount))
+                listener.onGetWaitTimeSuccess(calculateWaitTime(dataSnapshot.childrenCount.toDouble()))
             }
 
             override fun onCancelled(dataSnapshot: DatabaseError?) {
@@ -92,8 +92,10 @@ class ClientQueueService(private val context: Context) {
         return MAXIMUM_APPLICATION_QUEUE - applicationQueue
     }
 
-    private fun calculateWaitTime(queueNumber: Long): String {
-        return String.format("%.2f", queueNumber.toFloat() * 15 / 60)
+    private fun calculateWaitTime(queueNumber: Double): String {
+        val hour = Math.floor((queueNumber * 15) / 60)
+        val minute = (queueNumber * 15) % 60 / 100
+        return String.format("%.2f", hour + minute)
     }
 
     private fun getCurrentQueueFrom(dataSnapshot: DataSnapshot): String {
