@@ -47,7 +47,7 @@ object ClientQueueService {
     fun getCurrentInProgressQueue(context: Context, listener: OnGetQueueDataListener) {
         databaseRef.limitToFirst(1).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listener.onGetCurrentInProgressQueueSuccess(getCurrentQueueFrom(context, dataSnapshot))
+                listener.onGetCurrentInProgressQueueSuccess(getCurrentInProgressQueueFromSnapshot(context, dataSnapshot))
             }
 
             override fun onCancelled(dataSnapshot: DatabaseError?) {
@@ -71,7 +71,7 @@ object ClientQueueService {
     fun getAvailableQueueNumber(context: Context, listener: OnGetQueueDataListener) {
         databaseRef.orderByChild(CHILD_TYPE).equalTo(APPLICATION.name).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val availableQueue = calculateRemainQueue(dataSnapshot.children.count())
+                val availableQueue = calculateRemainAvailableQueue(dataSnapshot.children.count())
                 listener.onGetAvailableQueueNumberSuccess(availableQueue)
             }
 
@@ -86,7 +86,7 @@ object ClientQueueService {
         databaseRef.child(queueId).setValue(queue)
     }
 
-    private fun calculateRemainQueue(applicationQueue: Int): Int {
+    private fun calculateRemainAvailableQueue(applicationQueue: Int): Int {
         return MAXIMUM_APPLICATION_QUEUE - applicationQueue
     }
 
@@ -96,7 +96,7 @@ object ClientQueueService {
         return String.format("%.2f", hour + minute)
     }
 
-    private fun getCurrentQueueFrom(context: Context, dataSnapshot: DataSnapshot): String {
+    private fun getCurrentInProgressQueueFromSnapshot(context: Context, dataSnapshot: DataSnapshot): String {
         var currentInProgressQueue = context.getString(R.string.no_previous_queue)
 
         for (queueSnapshot in dataSnapshot.children) {
