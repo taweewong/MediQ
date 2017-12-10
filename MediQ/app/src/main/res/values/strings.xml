@@ -30,5 +30,6 @@
     <string name="error_load_previous_queue">ไม่สามารถโหลดจำนวนคิวก่อนหน้าได้</string>
     <string name="error_load_in_progress_queue">ไม่สามารถโหลดเลขที่คิวปัจจุบันได้</string>
     <string name="error_load_wait_time">ไม่สามารถโหลดเวลาที่รอได้</string>
+    <string name="error_load_available_queue">ไม่สามารถโหลดจำนวนคิวที่สามารถจองได้</string>
     <string name="no_previous_queue">ไม่มีคิวก่อนหน้า</string>
 </resources>

@@ -6,6 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.nonggun.mediq.R
+import com.nonggun.mediq.models.Queue.queueType.*
 
 class ClientQueueService(private val context: Context) {
 
@@ -24,9 +25,16 @@ class ClientQueueService(private val context: Context) {
         fun onGetWaitTimeFailed(message: String)
     }
 
+    interface OnGetAvailableQueueNumberListener {
+        fun onGetAvailableQueueNumberSuccess(availableQueueNumber: Int)
+        fun onGetAvailableQueueNumberFailed(message: String)
+    }
+
     companion object {
         private val CHILD_QUEUES = "queues"
         private val CHILD_QUEUE_NUMBER = "queueNumber"
+        private val CHILD_TYPE = "type"
+        private val MAXIMUM_APPLICATION_QUEUE = 10
     }
 
     private val databaseRef = FirebaseDatabase.getInstance().reference.child(CHILD_QUEUES)
@@ -65,6 +73,23 @@ class ClientQueueService(private val context: Context) {
                 listener.onGetWaitTimeFailed(context.getString(R.string.error_load_wait_time))
             }
         })
+    }
+
+    fun getAvailableQueueNumber(listener: OnGetAvailableQueueNumberListener) {
+        databaseRef.orderByChild(CHILD_TYPE).equalTo(APPLICATION.name).addValueEventListener(object : ValueEventListener{
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val availableQueue = calculateRemainQueue(dataSnapshot.children.count())
+                        listener.onGetAvailableQueueNumberSuccess(availableQueue)
+                    }
+
+                    override fun onCancelled(dataSnapshot: DatabaseError?) {
+                        listener.onGetAvailableQueueNumberFailed(context.getString(R.string.error_load_available_queue))
+                    }
+                })
+    }
+
+    private fun calculateRemainQueue(applicationQueue: Int): Int {
+        return MAXIMUM_APPLICATION_QUEUE - applicationQueue
     }
 
     private fun calculateWaitTime(queueNumber: Long): String {
