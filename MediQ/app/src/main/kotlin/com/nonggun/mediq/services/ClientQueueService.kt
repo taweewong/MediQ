@@ -33,7 +33,7 @@ object ClientQueueService {
     private val databaseRef = FirebaseDatabase.getInstance().reference.child(CHILD_QUEUES)
 
     fun getPreviousQueueNumber(context: Context, listener: OnGetQueueDataListener) {
-        databaseRef.addValueEventListener(object : ValueEventListener {
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listener.onGetPreviousQueueSuccess(dataSnapshot.children.count())
             }
@@ -45,7 +45,7 @@ object ClientQueueService {
     }
 
     fun getCurrentInProgressQueue(context: Context, listener: OnGetQueueDataListener) {
-        databaseRef.limitToFirst(1).addValueEventListener(object : ValueEventListener {
+        databaseRef.limitToFirst(1).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listener.onGetCurrentInProgressQueueSuccess(getCurrentInProgressQueueFromSnapshot(context, dataSnapshot))
             }
@@ -57,7 +57,7 @@ object ClientQueueService {
     }
 
     fun getWaitTime(context: Context, listener: OnGetQueueDataListener) {
-        databaseRef.addValueEventListener(object : ValueEventListener{
+        databaseRef.addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 listener.onGetWaitTimeSuccess(calculateWaitTime(dataSnapshot.childrenCount.toDouble()))
             }
@@ -69,16 +69,17 @@ object ClientQueueService {
     }
 
     fun getAvailableQueueNumber(context: Context, listener: OnGetQueueDataListener) {
-        databaseRef.orderByChild(CHILD_TYPE).equalTo(APPLICATION.name).addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val availableQueue = calculateRemainAvailableQueue(dataSnapshot.children.count())
-                listener.onGetAvailableQueueNumberSuccess(availableQueue)
-            }
+        databaseRef.orderByChild(CHILD_TYPE).equalTo(APPLICATION.name)
+                .addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val availableQueue = calculateRemainAvailableQueue(dataSnapshot.children.count())
+                        listener.onGetAvailableQueueNumberSuccess(availableQueue)
+                    }
 
-            override fun onCancelled(dataSnapshot: DatabaseError?) {
-                listener.onGetAvailableQueueNumberFailed(context.getString(R.string.error_load_available_queue))
-            }
-        })
+                    override fun onCancelled(dataSnapshot: DatabaseError?) {
+                        listener.onGetAvailableQueueNumberFailed(context.getString(R.string.error_load_available_queue))
+                    }
+                })
     }
 
     fun addQueue(queue: Queue) {
