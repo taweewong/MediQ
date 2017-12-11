@@ -69,7 +69,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/press_to_queue"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/red"
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

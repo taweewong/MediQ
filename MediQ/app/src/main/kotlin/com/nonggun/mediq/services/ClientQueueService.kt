@@ -12,7 +12,7 @@ import com.nonggun.mediq.models.Queue.queueType.APPLICATION
 object ClientQueueService {
 
     interface OnGetQueueDataListener {
-        fun onGetPreviousQueueSuccess(previousQueueNumber: Int)
+        fun onGetPreviousQueueSuccess(previousQueueNumber: String)
         fun onGetPreviousQueueFailed(message: String)
 
         fun onGetCurrentInProgressQueueSuccess(currentInProgressQueue: String)
@@ -21,7 +21,7 @@ object ClientQueueService {
         fun onGetWaitTimeSuccess(waitTime: String)
         fun onGetWaitTimeFailed(message: String)
 
-        fun onGetAvailableQueueNumberSuccess(availableQueueNumber: Int)
+        fun onGetAvailableQueueNumberSuccess(availableQueueNumber: String)
         fun onGetAvailableQueueNumberFailed(message: String)
     }
 
@@ -35,7 +35,7 @@ object ClientQueueService {
     fun getPreviousQueueNumber(context: Context, listener: OnGetQueueDataListener) {
         databaseRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                listener.onGetPreviousQueueSuccess(dataSnapshot.children.count())
+                listener.onGetPreviousQueueSuccess(dataSnapshot.children.count().toString())
             }
 
             override fun onCancelled(dataSnapshot: DatabaseError?) {
@@ -73,7 +73,7 @@ object ClientQueueService {
                 .addListenerForSingleValueEvent(object : ValueEventListener{
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         val availableQueue = calculateRemainAvailableQueue(dataSnapshot.children.count())
-                        listener.onGetAvailableQueueNumberSuccess(availableQueue)
+                        listener.onGetAvailableQueueNumberSuccess(availableQueue.toString())
                     }
 
                     override fun onCancelled(dataSnapshot: DatabaseError?) {
