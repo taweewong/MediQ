@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
-import com.nonggun.mediq.facade.ClientQueueFacade
+import com.nonggun.mediq.facades.ClientQueueFacade
 import com.nonggun.mediq.services.ClientQueueService
 import kotlinx.android.synthetic.main.activity_queue.*
 

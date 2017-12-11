@@ -1,4 +1,4 @@
-package com.nonggun.mediq.facade
+package com.nonggun.mediq.facades
 
 import android.content.Context
 import android.widget.Toast

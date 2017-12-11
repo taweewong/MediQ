@@ -67,18 +67,33 @@
         app:layout_constraintTop_toBottomOf="@+id/citizenIdLabelText" />
 
     <TextView
+        android:id="@+id/citizenIdErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:labelFor="@+id/registerPhoneNumberEditText"
+        android:text="@string/phone_number_label"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerCitizenIdEditText" />
+
+    <TextView
         android:id="@+id/phoneNumberLabelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
+        android:labelFor="@+id/registerPhoneNumberEditText"
         android:text="@string/phone_number_label"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
-        android:labelFor="@+id/registerPhoneNumberEditText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerCitizenIdEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/citizenIdErrorText" />
 
     <EditText
         android:id="@+id/registerPhoneNumberEditText"
@@ -93,18 +108,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumberLabelText" />
 
+    <TextView
+        android:id="@+id/phoneNumberErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:labelFor="@+id/registerPhoneNumberEditText"
+        android:text="@string/citizen_id_label"
+        android:textColor="@color/red"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumberEditText" />
+
     <Button
         android:id="@+id/registerProfileNextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/next"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/button_green_style"
+        android:text="@string/next"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerPhoneNumberEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumberErrorText" />
 
 </android.support.constraint.ConstraintLayout>

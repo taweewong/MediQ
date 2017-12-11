@@ -19,7 +19,8 @@
         <activity android:name=".controllers.register.RegisterProfileActivity" />
         <activity android:name=".controllers.register.RegisterNameActivity" />
         <activity android:name=".controllers.register.RegisterPasswordActivity" />
-        <activity android:name=".controllers.queue.QueueActivity"></activity>
+        <activity android:name=".controllers.queue.QueueActivity" />
+        <activity android:name=".controllers.register.FinishRegisterActivity"></activity>
     </application>
 
 </manifest>
