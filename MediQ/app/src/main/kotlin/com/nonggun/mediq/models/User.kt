@@ -3,11 +3,15 @@ package com.nonggun.mediq.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class User(private var firstName: String = "",
-                private var lastName: String = "",
-                private var citizenId: String = "",
-                private var phoneNumber: String = "",
-                private var password: String = "") : Parcelable {
+data class User(var firstName: String = "",
+                var lastName: String = "",
+                var citizenId: String = "",
+                var phoneNumber: String = "",
+                var password: String = "") : Parcelable {
+
+    object Key {
+        val USER_PARCEL_KEY = "user"
+    }
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
