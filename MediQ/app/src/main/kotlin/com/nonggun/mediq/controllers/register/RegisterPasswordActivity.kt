@@ -32,10 +32,7 @@ class RegisterPasswordActivity : BaseActivity(), View.OnClickListener {
                 registerUser.password = registerPasswordEditText.text.toString()
                 Toast.makeText(this, registerUser.toString(), Toast.LENGTH_LONG).show()
 
-                val intent = Intent(this, LoginActivity().javaClass)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                openFinishRegisterActivity()
             }
         }
     }
@@ -53,6 +50,7 @@ class RegisterPasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun openFinishRegisterActivity() {
-
+        val intent = Intent(this, FinishRegisterActivity().javaClass)
+        startActivity(intent)
     }
 }
