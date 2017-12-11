@@ -33,4 +33,7 @@
     <string name="error_load_available_queue">ไม่สามารถโหลดจำนวนคิวที่สามารถจองได้</string>
     <string name="no_previous_queue">ไม่มีคิวก่อนหน้า</string>
     <string name="error_load_data">เกิดข้อผิดพลาด ไม่สามารถแสดงข้อมูลได้</string>
+    <string name="register_success_header">การสมัครสำเร็จ</string>
+    <string name="register_success_des">ท่านสามารถเข้าสู่ระบบเพื่อจองคิวได้ทันที</string>
+    <string name="back_to_login_activity">กลับไปหน้าลงชื่อเข้าใช้</string>
 </resources>
