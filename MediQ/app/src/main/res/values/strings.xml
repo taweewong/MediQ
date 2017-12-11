@@ -36,4 +36,8 @@
     <string name="register_success_header">การสมัครสำเร็จ</string>
     <string name="register_success_des">ท่านสามารถเข้าสู่ระบบเพื่อจองคิวได้ทันที</string>
     <string name="back_to_login_activity">กลับไปหน้าลงชื่อเข้าใช้</string>
+    <string name="error_empty_phone_number">*กรุณากรอกหมายเลขโทรศัพท์เพื่อใช้ลงทะเบียน</string>
+    <string name="error_empty_citizen_id">*กรุณากรอกหมายเลขบัตรประชาชนเพื่อใช้ลงทะเบียน</string>
+    <string name="error_duplicate_phone_number">*หมายเลขโทรศัพท์นี้เคยใช้ในการลงทะเบียนแล้ว</string>
+    <string name="error_duplicate_citizen_id">*หมายเลขบัตรประชาชนนี้เคยใช้ในการลงทะเบียนแล้ว</string>
 </resources>
