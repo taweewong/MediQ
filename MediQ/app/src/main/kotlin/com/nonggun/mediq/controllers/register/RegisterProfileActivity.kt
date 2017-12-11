@@ -1,13 +1,13 @@
 package com.nonggun.mediq.controllers.register
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.nonggun.mediq.R
+import com.nonggun.mediq.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_register_profile.*
 
-class RegisterProfileActivity : AppCompatActivity(), View.OnClickListener {
+class RegisterProfileActivity : BaseActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

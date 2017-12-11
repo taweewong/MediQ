@@ -2,14 +2,14 @@ package com.nonggun.mediq.controllers.queue
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.nonggun.mediq.R
+import com.nonggun.mediq.base.BaseActivity
 import com.nonggun.mediq.facade.ClientQueueFacade
 import com.nonggun.mediq.services.ClientQueueService
 import kotlinx.android.synthetic.main.activity_queue.*
 
-class QueueActivity : AppCompatActivity(), ClientQueueService.OnGetQueueDataListener {
+class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener {
     private var previousQueue = ""
     private var currentInProgressQueue = ""
     private var waitTime = ""
