@@ -3,11 +3,10 @@ package com.nonggun.mediq.services
 import com.google.firebase.database.FirebaseDatabase
 import com.nonggun.mediq.models.User
 
-class RegisterService {
-    val database = FirebaseDatabase.getInstance()
-    val databaseRef = database.reference
+object RegisterService {
+    private val databaseRef = FirebaseDatabase.getInstance().reference
 
-    val CHILD_USERS = "users"
+    private val CHILD_USERS = "users"
 
     fun register(user: User){
         val id = databaseRef.push().key
