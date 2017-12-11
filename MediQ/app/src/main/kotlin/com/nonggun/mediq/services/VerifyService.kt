@@ -25,9 +25,9 @@ object VerifyService {
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (dataSnapshot.children.toMutableList().size != 0) {
-                            listener.onVerifyPhoneNumberSuccess(true)
+                            listener.onVerifyPhoneNumberSuccess(false)
                         } else {
-                            listener.onVerifyCitizenIdSuccess(false)
+                            listener.onVerifyPhoneNumberSuccess(true)
                         }
                     }
 
@@ -42,7 +42,7 @@ object VerifyService {
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         if (dataSnapshot.children.toMutableList().size != 0) {
-                            listener.onVerifyCitizenIdSuccess(true)
+                            listener.onVerifyCitizenIdSuccess(false)
                         } else {
                             listener.onVerifyCitizenIdSuccess(true)
                         }
