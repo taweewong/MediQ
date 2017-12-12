@@ -84,7 +84,7 @@ object ClientQueueService {
                 })
     }
 
-    fun addQueue(user: User) {
+    fun addQueue(user: User, queueCallBack: () -> Unit) {
         val queueId = databaseRef.push().key
         val queue = Queue()
         queue.name = String.format("%s %s", user.firstName, user.lastName)
@@ -93,6 +93,7 @@ object ClientQueueService {
         getCurrentQueueNumber(callback = {
             queue.queueNumber = it
             databaseRef.child(queueId).setValue(queue)
+            queueCallBack()
         })
     }
 

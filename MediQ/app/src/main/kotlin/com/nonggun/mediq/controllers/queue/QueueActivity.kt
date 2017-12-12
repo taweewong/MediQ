@@ -1,11 +1,13 @@
 package com.nonggun.mediq.controllers.queue
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.dialogs.QueueDialog
 import com.nonggun.mediq.facades.ClientQueueFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
@@ -29,9 +31,7 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
         confirmQueueText.isClickable = false
 
         confirmQueueText.setOnClickListener({
-            confirmQueueText.isClickable = false
-            ClientQueueFacade.addQueue(user)
-            sendUserDataToInQueueActivity(user)
+            createQueueDialog(user)
         })
     }
 
@@ -100,6 +100,21 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
             confirmQueueText.setTextColor(ContextCompat.getColor(this, R.color.red))
             confirmQueueText.isClickable = false
         }
+    }
+
+    private fun createQueueDialog(user: User) {
+        val dialog = QueueDialog(this, object : QueueDialog.OnClickQueueDialogButton {
+            override fun onClickQueueDialogPositiveButton(builder: AlertDialog) {
+                ClientQueueFacade.addQueue(user, queueCallback = {
+                    builder.dismiss()
+                    sendUserDataToInQueueActivity(user)
+                })
+            }
+        })
+
+        dialog.setTitle(getString(R.string.add_queue_dialog_title))
+        dialog.setMessage(getString(R.string.add_queue_dialog_message))
+        dialog.show()
     }
 
     private fun sendUserDataToInQueueActivity(user: User) {

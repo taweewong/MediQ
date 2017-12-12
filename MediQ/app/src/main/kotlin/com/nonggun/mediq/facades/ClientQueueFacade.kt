@@ -52,7 +52,7 @@ object ClientQueueFacade {
         })
     }
 
-    fun addQueue(user: User) {
-        ClientQueueService.addQueue(user)
+    fun addQueue(user: User, queueCallback: () -> Unit) {
+        ClientQueueService.addQueue(user, queueCallback)
     }
 }
