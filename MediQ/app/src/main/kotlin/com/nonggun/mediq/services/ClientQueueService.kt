@@ -8,6 +8,7 @@ import com.google.firebase.database.ValueEventListener
 import com.nonggun.mediq.R
 import com.nonggun.mediq.models.Queue
 import com.nonggun.mediq.models.Queue.queueType.APPLICATION
+import com.nonggun.mediq.models.User
 
 object ClientQueueService {
 
@@ -28,6 +29,7 @@ object ClientQueueService {
     private val CHILD_QUEUES = "queues"
     private val CHILD_QUEUE_NUMBER = "queueNumber"
     private val CHILD_TYPE = "type"
+    private val CHILD_CURRENT_QUEUE = "currentQueue"
     private val MAXIMUM_APPLICATION_QUEUE = 10
 
     private val databaseRef = FirebaseDatabase.getInstance().reference.child(CHILD_QUEUES)
@@ -82,9 +84,34 @@ object ClientQueueService {
                 })
     }
 
-    fun addQueue(queue: Queue) {
+    fun addQueue(user: User) {
         val queueId = databaseRef.push().key
-        databaseRef.child(queueId).setValue(queue)
+        val queue = Queue()
+        queue.name = String.format("%s %s", user.firstName, user.lastName)
+        queue.userId = user.userId
+        queue.type = APPLICATION.name
+        getCurrentQueueNumber(callback = {
+            queue.queueNumber = it
+            databaseRef.child(queueId).setValue(queue)
+        })
+    }
+
+    private fun getCurrentQueueNumber(callback: (queue: Int) -> Unit) {
+        val currentQueueRef = FirebaseDatabase.getInstance().reference.child(CHILD_CURRENT_QUEUE)
+        currentQueueRef.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val currentQueue = dataSnapshot.getValue(Int::class.java)
+                if (currentQueue != null) {
+                    callback(currentQueue)
+                    currentQueueRef.setValue(currentQueue + 1)
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+        })
     }
 
     private fun calculateRemainAvailableQueue(applicationQueue: Int): Int {
