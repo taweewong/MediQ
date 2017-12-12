@@ -11,7 +11,7 @@ import com.nonggun.mediq.models.User
 object LoginService {
 
     interface OnLoginComplete {
-        fun onLoginPassed()
+        fun onLoginPassed(user: User)
         fun onLoginFailed(message: String)
     }
 
@@ -41,7 +41,7 @@ object LoginService {
     private fun verifyLoginInput(context: Context, user: User?, password: String, listener: OnLoginComplete) {
         if (user != null) {
             when (user.password == password) {
-                true -> listener.onLoginPassed()
+                true -> listener.onLoginPassed(user)
                 false -> listener.onLoginFailed(context.getString(R.string.error_wrong_password))
             }
         } else {

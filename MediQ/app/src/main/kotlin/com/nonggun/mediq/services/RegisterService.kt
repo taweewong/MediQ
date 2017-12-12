@@ -10,6 +10,7 @@ object RegisterService {
 
     fun register(user: User){
         val id = databaseRef.push().key
+        user.userId = id
         databaseRef.child(CHILD_USERS).child(id).setValue(user)
     }
 }

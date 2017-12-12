@@ -32,7 +32,7 @@
     <string name="error_load_in_progress_queue">ไม่สามารถโหลดเลขที่คิวปัจจุบันได้</string>
     <string name="error_load_wait_time">ไม่สามารถโหลดเวลาที่รอได้</string>
     <string name="error_load_available_queue">ไม่สามารถโหลดจำนวนคิวที่สามารถจองได้</string>
-    <string name="no_previous_queue">ไม่มีคิวก่อนหน้า</string>
+    <string name="no_previous_queue">-</string>
     <string name="error_load_data">เกิดข้อผิดพลาด ไม่สามารถแสดงข้อมูลได้</string>
     <string name="register_success_header">การสมัครสำเร็จ</string>
     <string name="register_success_des">ท่านสามารถเข้าสู่ระบบเพื่อจองคิวได้ทันที</string>

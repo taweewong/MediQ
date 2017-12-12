@@ -7,18 +7,20 @@ data class User(var firstName: String = "",
                 var lastName: String = "",
                 var citizenId: String = "",
                 var phoneNumber: String = "",
-                var password: String = "") : Parcelable {
-
-    object Key {
-        val USER_PARCEL_KEY = "user"
-    }
+                var password: String = "",
+                var userId: String = "") : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
+            parcel.readString(),
             parcel.readString())
+
+    object Key {
+        val USER_PARCEL_KEY = "user"
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(firstName)
@@ -26,6 +28,7 @@ data class User(var firstName: String = "",
         parcel.writeString(citizenId)
         parcel.writeString(phoneNumber)
         parcel.writeString(password)
+        parcel.writeString(userId)
     }
 
     override fun describeContents(): Int {
@@ -41,4 +44,6 @@ data class User(var firstName: String = "",
             return arrayOfNulls(size)
         }
     }
+
+
 }
