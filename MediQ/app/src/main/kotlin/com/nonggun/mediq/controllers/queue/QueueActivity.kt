@@ -1,5 +1,6 @@
 package com.nonggun.mediq.controllers.queue
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
@@ -26,6 +27,12 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
 
         ClientQueueFacade.getQueueData(this, this)
         confirmQueueText.isClickable = false
+
+        confirmQueueText.setOnClickListener({
+            confirmQueueText.isClickable = false
+            ClientQueueFacade.addQueue(user)
+            sendUserDataToInQueueActivity(user)
+        })
     }
 
     override fun onGetPreviousQueueSuccess(previousQueueNumber: String) {
@@ -93,5 +100,12 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
             confirmQueueText.setTextColor(ContextCompat.getColor(this, R.color.red))
             confirmQueueText.isClickable = false
         }
+    }
+
+    private fun sendUserDataToInQueueActivity(user: User) {
+        val intent = Intent(this, InQueueActivity::class.java)
+        intent.putExtra(USER_PARCEL_KEY, user)
+        startActivity(intent)
+        finish()
     }
 }
