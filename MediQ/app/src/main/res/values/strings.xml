@@ -3,6 +3,7 @@
     <string name="mediq">MediQ</string>
     <string name="login_description">ยินดีต้อนรับสู่ MediQ แอปพลิเคชันสำหรับจองคิวการรักษาภายในโรงพยาบาลลาดกระบัง กรุงเทพมหานคร</string>
     <string name="citizen_id_hint">หมายเลขบัตรประชาชน</string>
+    <string name="phone_number_hint">หมายเลขโทรศัพท์</string>
     <string name="password_hint">รหัสผ่าน</string>
     <string name="if_havnt_register">หากยังไม่ได้ลงทะเบียน</string>
     <string name="register_link">สมัคร</string>
@@ -40,4 +41,7 @@
     <string name="error_empty_citizen_id">*กรุณากรอกหมายเลขบัตรประชาชนเพื่อใช้ลงทะเบียน</string>
     <string name="error_duplicate_phone_number">*หมายเลขโทรศัพท์นี้เคยใช้ในการลงทะเบียนแล้ว</string>
     <string name="error_duplicate_citizen_id">*หมายเลขบัตรประชาชนนี้เคยใช้ในการลงทะเบียนแล้ว</string>
+    <string name="error_not_found_phone_number">ไม่พบหมายเลขโทรศัพท์นี้ในระบบ</string>
+    <string name="error_wrong_password">รหัสผ่านไม่ถูกต้อง</string>
+    <string name="error_can_not_verify_login">เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์ โปรดลองใหม่อีกครั้ง</string>
 </resources>
