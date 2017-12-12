@@ -55,4 +55,8 @@ object ClientQueueFacade {
     fun addQueue(user: User, queueCallback: () -> Unit) {
         ClientQueueService.addQueue(user, queueCallback)
     }
+
+    fun removeQueue(userId: String) {
+        ClientInQueueService.removeQueue(userId)
+    }
 }
