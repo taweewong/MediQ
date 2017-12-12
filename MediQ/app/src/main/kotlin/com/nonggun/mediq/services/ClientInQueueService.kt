@@ -1,10 +1,7 @@
 package com.nonggun.mediq.services
 
 import android.content.Context
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.nonggun.mediq.R
 import com.nonggun.mediq.models.Queue
 import com.nonggun.mediq.models.User
@@ -77,6 +74,21 @@ object ClientInQueueService {
                 listener.onGetWaitQueueNumberAndTimeFailed(databaseError.message)
             }
         })
+    }
+
+    fun removeQueue(userId: String) {
+        databaseRef.orderByChild(CHILD_USER_ID).equalTo(userId)
+                .addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        for (queueSnapshot: DataSnapshot in dataSnapshot.children) {
+                            databaseRef.child(queueSnapshot.key).removeValue()
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+
+                    }
+                })
     }
 
     private fun getCurrentQueueFromUser(queue: Queue?, user: User, listener: OnGetUserQueueListener) {
