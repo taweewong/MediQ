@@ -51,4 +51,8 @@ object ClientQueueFacade {
             }
         })
     }
+
+    fun addQueue(user: User) {
+        ClientQueueService.addQueue(user)
+    }
 }
