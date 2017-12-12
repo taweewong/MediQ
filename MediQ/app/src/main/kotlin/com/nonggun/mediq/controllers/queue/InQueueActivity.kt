@@ -1,11 +1,12 @@
 package com.nonggun.mediq.controllers.queue
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.dialogs.QueueDialog
 import com.nonggun.mediq.dialogs.ReachQueueDialog
 import com.nonggun.mediq.facades.ClientQueueFacade
 import com.nonggun.mediq.models.User
@@ -27,6 +28,10 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
         dialog = ReachQueueDialog(this)
         user = intent.getParcelableExtra(USER_PARCEL_KEY)
         ClientQueueFacade.getInQueueData(this, user, this, this)
+
+        cancelQueueText.setOnClickListener {
+            createRemoveQueueDialog(user)
+        }
     }
 
     override fun onGetCurrentQueueSuccess(user: User, userQueue: Int) {
@@ -38,7 +43,6 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
     }
 
     override fun onGetCurrentQueueNotFound(user: User) {
-        Log.d("DEBUG", "Not Found")
         dialog.dismiss()
         startQueueActivity(user)
     }
@@ -53,9 +57,7 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
 
     override fun onGetWaitQueueNumberAndTimeSuccess(previousQueueNumber: Int, waitTime: String) {
         if (previousQueueNumber == 0) {
-            Log.d("DEBUG", "wait time " + waitTime)
             dialog.show()
-            //startQueueActivity(user)
         } else {
             waitQueueText.text = previousQueueNumber.toString()
             waitTimeText.text = waitTime
@@ -64,6 +66,19 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
 
     override fun onGetWaitQueueNumberAndTimeFailed(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun createRemoveQueueDialog(user: User) {
+        val dialog = QueueDialog(this, object : QueueDialog.OnClickQueueDialogButton {
+            override fun onClickQueueDialogPositiveButton(builder: AlertDialog) {
+                ClientQueueFacade.removeQueue(user.userId)
+                startQueueActivity(user)
+            }
+        })
+
+        dialog.setTitle(getString(R.string.remove_queue_dialog_title))
+        dialog.setMessage(getString(R.string.remove_queue_dialog_message))
+        dialog.show()
     }
 
     private fun startQueueActivity(user: User) {
