@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
-import com.nonggun.mediq.facades.RegisterFacade
+import com.nonggun.mediq.facades.UserFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
 import com.nonggun.mediq.services.VerifyService
@@ -55,7 +55,7 @@ class RegisterProfileActivity : BaseActivity(), View.OnClickListener, VerifyServ
 
     private fun validateInput(user: User) {
         if (isPhoneNumberValid(user.phoneNumber) and isCitizenIdValid(user.citizenId)) {
-            RegisterFacade.verifyDuplicateRegisterInput(user.phoneNumber, user.citizenId, this)
+            UserFacade.verifyDuplicateRegisterInput(user.phoneNumber, user.citizenId, this)
         }
 
         updatedUi(isPhoneNumberValid(user.phoneNumber),

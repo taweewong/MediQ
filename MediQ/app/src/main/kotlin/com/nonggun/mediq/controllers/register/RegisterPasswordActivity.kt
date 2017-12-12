@@ -7,7 +7,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
-import com.nonggun.mediq.facades.RegisterFacade
+import com.nonggun.mediq.facades.UserFacade
 import com.nonggun.mediq.models.User
 import kotlinx.android.synthetic.main.activity_register_password.*
 
@@ -29,7 +29,7 @@ class RegisterPasswordActivity : BaseActivity(), View.OnClickListener {
             R.id.showPasswordCheckBox -> setPasswordEditTextInputType(showPasswordCheckBox.isChecked)
             R.id.registerPasswordNextButton -> {
                 registerUser.password = registerPasswordEditText.text.toString()
-                RegisterFacade.register(registerUser)
+                UserFacade.register(registerUser)
                 openFinishRegisterActivity()
             }
         }

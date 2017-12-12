@@ -5,7 +5,7 @@ import com.nonggun.mediq.services.RegisterService
 import com.nonggun.mediq.services.VerifyService
 import com.nonggun.mediq.services.VerifyService.OnVerifyRegisterDataComplete
 
-object RegisterFacade {
+object UserFacade {
 
     fun verifyDuplicateRegisterInput(phoneNumber: String, citizenId: String, listener: OnVerifyRegisterDataComplete) {
         VerifyService.verifyPhoneNumber(phoneNumber, listener)
