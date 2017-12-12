@@ -29,7 +29,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
             R.id.loginButton -> {
                 val phoneNumber = phoneNumberEditText.text.toString()
                 val password = passwordEditText.text.toString()
-                //TODO: edit login layout
                 UserFacade.login(this, phoneNumber, password, this)
             }
         }
