@@ -58,5 +58,6 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
         val intent = Intent(this, QueueActivity::class.java)
         intent.putExtra(USER_PARCEL_KEY, user)
         startActivity(intent)
+        finish()
     }
 }
