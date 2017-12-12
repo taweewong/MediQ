@@ -51,4 +51,5 @@
     <string name="queue_dialog_negative">ยกเลิก</string>
     <string name="add_queue_dialog_title">ดำเนินการจองคิว</string>
     <string name="add_queue_dialog_message">คุณต้องการที่จะดำเนินการจองคิวใช่หรือไม่ ?</string>
+    <string name="reach_queue_dialog_title">ถึงคิวของคุณแล้ว!</string>
 </resources>
