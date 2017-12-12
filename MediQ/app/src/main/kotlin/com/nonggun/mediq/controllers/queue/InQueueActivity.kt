@@ -2,9 +2,11 @@ package com.nonggun.mediq.controllers.queue
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.dialogs.ReachQueueDialog
 import com.nonggun.mediq.facades.ClientQueueFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
@@ -15,12 +17,14 @@ import kotlinx.android.synthetic.main.activity_in_queue.*
 class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQueueListener{
 
     private lateinit var user: User
+    private lateinit var dialog: ReachQueueDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_in_queue)
         supportActionBar?.hide()
 
+        dialog = ReachQueueDialog(this)
         user = intent.getParcelableExtra(USER_PARCEL_KEY)
         ClientQueueFacade.getInQueueData(this, user, this, this)
     }
@@ -34,7 +38,9 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
     }
 
     override fun onGetCurrentQueueNotFound(user: User) {
-
+        Log.d("DEBUG", "Not Found")
+        dialog.dismiss()
+        startQueueActivity(user)
     }
 
     override fun onGetCurrentInProgressQueueSuccess(queueNumber: String) {
@@ -47,7 +53,9 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
 
     override fun onGetWaitQueueNumberAndTimeSuccess(previousQueueNumber: Int, waitTime: String) {
         if (previousQueueNumber == 0) {
-            startQueueActivity(user)
+            Log.d("DEBUG", "wait time " + waitTime)
+            dialog.show()
+            //startQueueActivity(user)
         } else {
             waitQueueText.text = previousQueueNumber.toString()
             waitTimeText.text = waitTime

@@ -1,5 +1,6 @@
 package com.nonggun.mediq.controllers.queue
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -103,9 +104,11 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
 
     private fun createQueueDialog(user: User) {
         val dialog = QueueDialog(this, object : QueueDialog.OnClickQueueDialogButton {
-            override fun onClickQueueDialogPositiveButton() {
-                ClientQueueFacade.addQueue(user)
-                sendUserDataToInQueueActivity(user)
+            override fun onClickQueueDialogPositiveButton(builder: AlertDialog) {
+                ClientQueueFacade.addQueue(user, queueCallback = {
+                    builder.dismiss()
+                    sendUserDataToInQueueActivity(user)
+                })
             }
         })
 

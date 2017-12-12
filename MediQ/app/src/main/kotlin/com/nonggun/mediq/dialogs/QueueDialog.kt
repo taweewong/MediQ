@@ -8,10 +8,10 @@ import com.nonggun.mediq.R
 class QueueDialog(activity: Activity, listener: OnClickQueueDialogButton) {
 
     interface OnClickQueueDialogButton {
-        fun onClickQueueDialogPositiveButton()
+        fun onClickQueueDialogPositiveButton(builder: AlertDialog)
     }
 
-    private val builder: AlertDialog = AlertDialog.Builder(activity).create()
+    private val builder = AlertDialog.Builder(activity).create()
     private val layoutInflater = activity.layoutInflater
     private val view = layoutInflater.inflate(R.layout.dialog_queue, null)
     private val queueDialogTitle = view.findViewById<TextView>(R.id.queueDialogTitle)
@@ -22,7 +22,7 @@ class QueueDialog(activity: Activity, listener: OnClickQueueDialogButton) {
     init {
         builder.setView(view)
         queueDialogPositiveText.setOnClickListener({
-            listener.onClickQueueDialogPositiveButton()
+            listener.onClickQueueDialogPositiveButton(builder)
         })
         queueDialogNegativeText.setOnClickListener({
             builder.dismiss()
