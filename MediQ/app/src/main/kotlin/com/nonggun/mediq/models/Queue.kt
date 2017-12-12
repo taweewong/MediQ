@@ -3,10 +3,10 @@ package com.nonggun.mediq.models
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Queue(var queueNumber: Int,
-                 var name: String,
-                 var type: String,
-                 var userId: String) : Parcelable {
+data class Queue(var queueNumber: Int = -1,
+                 var name: String = "",
+                 var type: String = "",
+                 var userId: String = "") : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
