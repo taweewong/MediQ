@@ -34,7 +34,7 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
     }
 
     override fun onGetCurrentQueueNotFound(user: User) {
-        startQueueActivity(user)
+
     }
 
     override fun onGetCurrentInProgressQueueSuccess(queueNumber: String) {
@@ -46,8 +46,12 @@ class InQueueActivity : BaseActivity(), OnGetUserQueueDataListener, OnGetUserQue
     }
 
     override fun onGetWaitQueueNumberAndTimeSuccess(previousQueueNumber: Int, waitTime: String) {
-        waitQueueText.text = previousQueueNumber.toString()
-        waitTimeText.text = waitTime
+        if (previousQueueNumber == 0) {
+            startQueueActivity(user)
+        } else {
+            waitQueueText.text = previousQueueNumber.toString()
+            waitTimeText.text = waitTime
+        }
     }
 
     override fun onGetWaitQueueNumberAndTimeFailed(message: String) {
