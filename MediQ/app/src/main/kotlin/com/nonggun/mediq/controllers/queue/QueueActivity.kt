@@ -6,6 +6,8 @@ import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
 import com.nonggun.mediq.facades.ClientQueueFacade
+import com.nonggun.mediq.models.User
+import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
 import com.nonggun.mediq.services.ClientQueueService
 import kotlinx.android.synthetic.main.activity_queue.*
 
@@ -14,11 +16,13 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
     private var currentInProgressQueue = ""
     private var waitTime = ""
     private var availableQueueNumber = ""
+    private lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queue)
         supportActionBar?.hide()
+        user = intent.getParcelableExtra(USER_PARCEL_KEY)
 
         ClientQueueFacade.getQueueData(this, this)
         confirmQueueText.isClickable = false
