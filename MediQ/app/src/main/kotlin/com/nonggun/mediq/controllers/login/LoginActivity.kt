@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.controllers.queue.InQueueActivity
 import com.nonggun.mediq.controllers.queue.QueueActivity
 import com.nonggun.mediq.controllers.register.RegisterProfileActivity
 import com.nonggun.mediq.facades.UserFacade
@@ -50,8 +51,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
         startActivity(Intent(this, javaClass))
     }
 
-    private fun sendUserDataToQueueActivity(user: User) {
-        intent = Intent(this, QueueActivity().javaClass)
+    private fun <T>sendUserDataToQueueActivity(user: User, queueClass: Class<T>) {
+        intent = Intent(this, queueClass)
         intent.putExtra(USER_PARCEL_KEY, user)
         startActivity(intent)
         finish()
@@ -62,7 +63,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
     }
 
     override fun onGetCurrentQueueSuccess(user: User, userQueue: Int) {
-        //TODO: Start InQueueActivity
+        sendUserDataToQueueActivity(user, InQueueActivity::class.java)
         Toast.makeText(this, "Queue Found", Toast.LENGTH_SHORT).show()
     }
 
@@ -71,6 +72,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
     }
 
     override fun onGetCurrentQueueNotFound(user: User) {
-        sendUserDataToQueueActivity(user)
+        sendUserDataToQueueActivity(user, QueueActivity::class.java)
     }
 }
