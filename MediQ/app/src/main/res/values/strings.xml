@@ -47,4 +47,6 @@
     <string name="user_queue_label">คิวของคุณคือ</string>
     <string name="cancel_queue">ยกเลิกคิว</string>
     <string name="wait_queue_label">จำนวนคิวที่รอ(คิว)</string>
+    <string name="queue_dialog_positive">ยืนยัน</string>
+    <string name="queue_dialog_negative">ยกเลิก</string>
 </resources>
