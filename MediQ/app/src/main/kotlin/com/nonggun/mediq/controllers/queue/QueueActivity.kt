@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.dialogs.QueueDialog
 import com.nonggun.mediq.facades.ClientQueueFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
@@ -29,9 +30,7 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
         confirmQueueText.isClickable = false
 
         confirmQueueText.setOnClickListener({
-            confirmQueueText.isClickable = false
-            ClientQueueFacade.addQueue(user)
-            sendUserDataToInQueueActivity(user)
+            createQueueDialog(user)
         })
     }
 
@@ -100,6 +99,19 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
             confirmQueueText.setTextColor(ContextCompat.getColor(this, R.color.red))
             confirmQueueText.isClickable = false
         }
+    }
+
+    private fun createQueueDialog(user: User) {
+        val dialog = QueueDialog(this, object : QueueDialog.OnClickQueueDialogButton {
+            override fun onClickQueueDialogPositiveButton() {
+                ClientQueueFacade.addQueue(user)
+                sendUserDataToInQueueActivity(user)
+            }
+        })
+
+        dialog.setTitle("ดำเนินการจองคิว")
+        dialog.setMessage("คุณต้องการที่จะดำเนินการจองคิวใช่หรือไม่ ?")
+        dialog.show()
     }
 
     private fun sendUserDataToInQueueActivity(user: User) {
