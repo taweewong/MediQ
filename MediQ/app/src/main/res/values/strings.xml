@@ -44,4 +44,7 @@
     <string name="error_not_found_phone_number">ไม่พบหมายเลขโทรศัพท์นี้ในระบบ</string>
     <string name="error_wrong_password">รหัสผ่านไม่ถูกต้อง</string>
     <string name="error_can_not_verify_login">เกิดข้อผิดพลาดในการตรวจสอบหมายเลขโทรศัพท์ โปรดลองใหม่อีกครั้ง</string>
+    <string name="user_queue_label">คิวของคุณคือ</string>
+    <string name="cancel_queue">ยกเลิกคิว</string>
+    <string name="wait_queue_label">จำนวนคิวที่รอ(คิว)</string>
 </resources>
