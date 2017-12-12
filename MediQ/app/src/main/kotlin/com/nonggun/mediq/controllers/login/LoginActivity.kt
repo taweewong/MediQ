@@ -11,10 +11,12 @@ import com.nonggun.mediq.controllers.register.RegisterProfileActivity
 import com.nonggun.mediq.facades.UserFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
+import com.nonggun.mediq.services.ClientInQueueService
 import com.nonggun.mediq.services.LoginService
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLoginComplete {
+class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLoginComplete,
+        ClientInQueueService.OnGetUserQueueListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
     }
 
     override fun onLoginPassed(user: User) {
-        sendUserDataToQueueActivity(user)
+        checkUserQueue(user)
     }
 
     override fun onLoginFailed(message: String) {
@@ -53,5 +55,22 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
         intent.putExtra(USER_PARCEL_KEY, user)
         startActivity(intent)
         finish()
+    }
+
+    private fun checkUserQueue(user: User) {
+        ClientInQueueService.getUserQueue(user, this)
+    }
+
+    override fun onGetCurrentQueueSuccess(user: User, userQueue: Int) {
+        //TODO: Start InQueueActivity
+        Toast.makeText(this, "Queue Found", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onGetCurrentQueueFailed(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onGetCurrentQueueNotFound(user: User) {
+        sendUserDataToQueueActivity(user)
     }
 }
