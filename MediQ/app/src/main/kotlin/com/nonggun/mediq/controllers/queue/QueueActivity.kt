@@ -109,8 +109,8 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
             }
         })
 
-        dialog.setTitle("ดำเนินการจองคิว")
-        dialog.setMessage("คุณต้องการที่จะดำเนินการจองคิวใช่หรือไม่ ?")
+        dialog.setTitle(getString(R.string.add_queue_dialog_title))
+        dialog.setMessage(getString(R.string.add_queue_dialog_message))
         dialog.show()
     }
 
