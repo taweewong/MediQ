@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), WalkInQueueService.OnGetAllQueueComple
     }
 
     override fun onGetAllQueueSuccess(queues: ArrayList<Queue>) {
-        val adapter = QueueRecyclerAdapter(queues)
+        val adapter = QueueRecyclerAdapter(this, queues)
         queueRecyclerView.adapter = adapter
     }
 
