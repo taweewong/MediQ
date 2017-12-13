@@ -1,5 +1,8 @@
 package com.nonggun.mediq.controllers.profile
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -7,12 +10,12 @@ import android.view.View
 import android.view.WindowManager
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.controllers.login.LoginActivity
+import com.nonggun.mediq.controllers.splashscreen.SplashScreenActivity
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
-import kotlinx.android.synthetic.main.activity_profile.*
-import android.app.Activity
-import android.content.Intent
 import com.nonggun.mediq.services.UserProfileService
+import kotlinx.android.synthetic.main.activity_profile.*
 
 
 class ProfileActivity : BaseActivity(), View.OnClickListener {
@@ -64,6 +67,7 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
             R.id.editProfileButton -> changeStateToEditProfile()
             R.id.editProfileCancelButton -> initializeUi()
             R.id.editProfileConfirmButton -> confirmUpdateUser()
+            R.id.logoutButton -> logout()
         }
     }
 
@@ -95,6 +99,17 @@ class ProfileActivity : BaseActivity(), View.OnClickListener {
         val resultIntent = Intent()
         resultIntent.putExtra(USER_PARCEL_KEY, user)
         setResult(Activity.RESULT_OK, resultIntent)
+        finish()
+    }
+
+    private fun logout() {
+        val sharedPref = getSharedPreferences(SplashScreenActivity.SHARE_PREFS_NAME, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+
+        editor.clear()
+        editor.apply()
+
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 }
