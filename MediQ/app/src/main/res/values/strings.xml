@@ -54,4 +54,14 @@
     <string name="reach_queue_dialog_title">ถึงคิวของคุณแล้ว!</string>
     <string name="remove_queue_dialog_title">ยกเลิกการจองคิว</string>
     <string name="remove_queue_dialog_message">คุณต้องการที่จะยกเลิกการจองคิวของคุณหรือไม่ ?</string>
+    <string name="profile_title">ข้อมูลส่วนตัว</string>
+    <string name="profile_first_name">ชื่อ</string>
+    <string name="profile_last_name">นามสกุล</string>
+    <string name="profile_citizen_id">หมายเลขบัตรประชาชน</string>
+    <string name="profile_phone_number">หมายเลขโทรศัพท์</string>
+    <string name="logout">ออกจากระบบ</string>
+    <string name="cancel_button">ยกเลิก</string>
+    <string name="confirm_button">ยืนยัน</string>
+    <string name="go_to_profile_page">go to profile page</string>
+    <string name="edit_profile">edit profile</string>
 </resources>
