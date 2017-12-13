@@ -62,4 +62,5 @@
     <string name="logout">ออกจากระบบ</string>
     <string name="cancel_button">ยกเลิก</string>
     <string name="confirm_button">ยืนยัน</string>
+    <string name="go_to_profile_page">go to profile page</string>
 </resources>
