@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.nonggun.nursemediq.R
 import com.nonggun.nursemediq.adapter.QueueRecyclerAdapter
@@ -23,6 +25,16 @@ class MainActivity : AppCompatActivity(), WalkInQueueService.OnGetAllQueueComple
         floatingActionButton.setOnClickListener({
             createAddQueueDialog()
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.queue_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        WalkInQueueService.clearAllQueue()
+        return true
     }
 
     override fun onGetAllQueueSuccess(queues: ArrayList<Queue>) {
