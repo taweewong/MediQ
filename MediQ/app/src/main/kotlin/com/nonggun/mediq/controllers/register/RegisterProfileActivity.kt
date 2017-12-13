@@ -1,5 +1,6 @@
 package com.nonggun.mediq.controllers.register
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,18 +11,21 @@ import com.nonggun.mediq.facades.UserFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
 import com.nonggun.mediq.services.VerifyService
+import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.activity_register_profile.*
 
 class RegisterProfileActivity : BaseActivity(), View.OnClickListener, VerifyService.OnVerifyRegisterDataComplete {
     private val registerUser = User()
     private var isPhoneNumberAvailable = false
     private var isCitizenIdAvailable = false
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_profile)
         supportActionBar?.hide()
 
+        loadingDialog = SpotsDialog(this, R.style.CustomSpotLoading)
         registerProfileNextButton.setOnClickListener(this)
     }
 
@@ -55,6 +59,7 @@ class RegisterProfileActivity : BaseActivity(), View.OnClickListener, VerifyServ
 
     private fun validateInput(user: User) {
         if (isPhoneNumberValid(user.phoneNumber) and isCitizenIdValid(user.citizenId)) {
+            loadingDialog.show()
             UserFacade.verifyDuplicateRegisterInput(user.phoneNumber, user.citizenId, this)
         }
 
@@ -69,6 +74,7 @@ class RegisterProfileActivity : BaseActivity(), View.OnClickListener, VerifyServ
             sendUserDataToRegisterNameActivity(user)
         }
 
+        loadingDialog.dismiss()
         updatedUi(isPhoneNumberAvailable,
                 isCitizenIdAvailable,
                 getString(R.string.error_duplicate_phone_number),
