@@ -29,6 +29,7 @@
             android:name=".controllers.queue.InQueueActivity"
             android:launchMode="singleTask" />
         <activity android:name=".controllers.profile.ProfileActivity" />
+        <activity android:name=".controllers.splashscreen.SplashScreenActivity"></activity>
     </application>
 
 </manifest>
