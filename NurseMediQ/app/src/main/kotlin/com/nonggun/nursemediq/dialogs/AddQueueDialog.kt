@@ -1,4 +1,4 @@
-package com.nonggun.nursemediq.dialog
+package com.nonggun.nursemediq.dialogs
 
 import android.app.Activity
 import android.app.AlertDialog
