@@ -15,7 +15,6 @@ class AddQueueDialog(activity: Activity, listener: OnClickDialogButton) {
     private val builder = AlertDialog.Builder(activity).create()
     private val layoutInflater = activity.layoutInflater
     private val view = layoutInflater.inflate(R.layout.dialog_add_queue, null)
-    private val addQueueLabel = view.findViewById<TextView>(R.id.addQueueLabel)
     private val nameEditText = view.findViewById<EditText>(R.id.nameEditText)
     private val phoneEditText = view.findViewById<EditText>(R.id.phonenameEditText)
     private val confirmButton = view.findViewById<TextView>(R.id.confirmButton)
