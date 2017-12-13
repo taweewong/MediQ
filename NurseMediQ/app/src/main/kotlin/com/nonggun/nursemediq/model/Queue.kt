@@ -8,7 +8,7 @@ data class Queue(var queueNumber: Int = -1,
                  var type: String = "",
                  var userId: String = "",
                  var phoneNumber: String = "",
-                 var queueId: String) : Parcelable {
+                 var queueId: String = "") : Parcelable {
 
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
