@@ -15,6 +15,7 @@ object QueryQueueService {
     }
 
     private val CHILD_QUEUES = "queues"
+    private val CHILD_CURRENT_QUEUE = "currentQueue"
 
     private val databaseRef = FirebaseDatabase.getInstance().reference.child(CHILD_QUEUES)
 
@@ -30,6 +31,40 @@ object QueryQueueService {
             override fun onCancelled(databaseError: DatabaseError) {
                 listener.onGetAllQueueFailed(databaseError.message)
             }
+        })
+    }
+
+    fun addWalkInQueue(name: String, phoneNumber: String) {
+        val queue = Queue()
+        val queueId = databaseRef.push().key
+
+        queue.name = name
+        queue.phoneNumber = phoneNumber
+        queue.queueId = queueId
+        queue.type = "WALK_IN"
+        getCurrentQueueNumber {
+            queue.queueNumber = it
+            databaseRef.child(queueId).setValue(queue)
+        }
+
+        databaseRef.child(queueId).setValue(queue)
+    }
+
+    private fun getCurrentQueueNumber(callback: (queue: Int) -> Unit) {
+        val currentQueueRef = FirebaseDatabase.getInstance().reference.child(CHILD_CURRENT_QUEUE)
+        currentQueueRef.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val currentQueue = dataSnapshot.getValue(Int::class.java)
+                if (currentQueue != null) {
+                    callback(currentQueue)
+                    currentQueueRef.setValue(currentQueue + 1)
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
         })
     }
 }
