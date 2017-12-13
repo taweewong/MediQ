@@ -9,16 +9,16 @@ import com.nonggun.nursemediq.R
 import com.nonggun.nursemediq.adapter.QueueRecyclerAdapter
 import com.nonggun.nursemediq.dialog.AddQueueDialog
 import com.nonggun.nursemediq.model.Queue
-import com.nonggun.nursemediq.service.QueryQueueService
+import com.nonggun.nursemediq.service.WalkInQueueService
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), QueryQueueService.OnGetAllQueueComplete {
+class MainActivity : AppCompatActivity(), WalkInQueueService.OnGetAllQueueComplete {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         queueRecyclerView.layoutManager = LinearLayoutManager(this)
-        QueryQueueService.getAllQueue(this)
+        WalkInQueueService.getAllQueue(this)
 
         floatingActionButton.setOnClickListener({
             createAddQueueDialog()
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), QueryQueueService.OnGetAllQueueComplet
     private fun createAddQueueDialog() {
         val dialog = AddQueueDialog(this, object : AddQueueDialog.OnClickDialogButton{
             override fun onClickConfirmDialog(builder: AlertDialog, name: String, phoneNumber: String) {
-                QueryQueueService.addWalkInQueue(name, phoneNumber)
+                WalkInQueueService.addWalkInQueue(name, phoneNumber)
                 builder.dismiss()
             }
         })

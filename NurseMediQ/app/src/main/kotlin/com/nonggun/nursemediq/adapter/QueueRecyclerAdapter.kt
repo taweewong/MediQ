@@ -6,7 +6,7 @@ import com.nonggun.nursemediq.model.Queue
 import com.nonggun.nursemediq.viewholder.QueueViewHolder
 import android.view.LayoutInflater
 import com.nonggun.nursemediq.R
-import com.nonggun.nursemediq.service.QueryQueueService
+import com.nonggun.nursemediq.service.WalkInQueueService
 
 class QueueRecyclerAdapter(private val queues: List<Queue>): RecyclerView.Adapter<QueueViewHolder>() {
 
@@ -22,7 +22,7 @@ class QueueRecyclerAdapter(private val queues: List<Queue>): RecyclerView.Adapte
         holder.clientNameText.text = queues[position].name
         holder.clientPhoneNumberText.text = queues[position].phoneNumber
         holder.deleteButton.setOnClickListener {
-            QueryQueueService.deleteQueue(queues[position])
+            WalkInQueueService.deleteQueue(queues[position])
         }
     }
 

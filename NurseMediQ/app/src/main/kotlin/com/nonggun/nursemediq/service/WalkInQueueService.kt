@@ -7,7 +7,7 @@ import com.google.firebase.database.ValueEventListener
 import com.nonggun.nursemediq.model.Queue
 
 
-object QueryQueueService {
+object WalkInQueueService {
 
     interface OnGetAllQueueComplete {
         fun onGetAllQueueSuccess(queues: ArrayList<Queue>)
