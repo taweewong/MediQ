@@ -4,10 +4,13 @@ import android.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.nonggun.nursemediq.R
 import com.nonggun.nursemediq.adapter.QueueRecyclerAdapter
 import com.nonggun.nursemediq.dialogs.AddQueueDialog
+import com.nonggun.nursemediq.dialogs.ConfirmDeleteDialog
 import com.nonggun.nursemediq.model.Queue
 import com.nonggun.nursemediq.service.WalkInQueueService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,6 +26,16 @@ class MainActivity : AppCompatActivity(), WalkInQueueService.OnGetAllQueueComple
         floatingActionButton.setOnClickListener({
             createAddQueueDialog()
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.queue_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        createClearAllQueueDialog()
+        return true
     }
 
     override fun onGetAllQueueSuccess(queues: ArrayList<Queue>) {
@@ -42,6 +55,17 @@ class MainActivity : AppCompatActivity(), WalkInQueueService.OnGetAllQueueComple
             }
         })
 
+        dialog.show()
+    }
+
+    private fun createClearAllQueueDialog() {
+        val dialog = ConfirmDeleteDialog(this, object : ConfirmDeleteDialog.OnClickDialogButton {
+            override fun onClickConfirmDialog(builder: AlertDialog) {
+                WalkInQueueService.clearAllQueue()
+                builder.dismiss()
+            }
+        })
+        dialog.setMessage("คุณต้องการที่จะลบคิวทั้งหมดหรือไม่ ?")
         dialog.show()
     }
 }

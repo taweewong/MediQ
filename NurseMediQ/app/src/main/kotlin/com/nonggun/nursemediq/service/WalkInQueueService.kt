@@ -54,6 +54,13 @@ object WalkInQueueService {
         databaseRef.child(queue.queueId).removeValue()
     }
 
+    fun clearAllQueue() {
+        val currentQueueRef = FirebaseDatabase.getInstance().reference.child(CHILD_CURRENT_QUEUE)
+
+        databaseRef.removeValue()
+        currentQueueRef.setValue(1)
+    }
+
     private fun getCurrentQueueNumber(callback: (queue: Int) -> Unit) {
         val currentQueueRef = FirebaseDatabase.getInstance().reference.child(CHILD_CURRENT_QUEUE)
         currentQueueRef.addListenerForSingleValueEvent(object : ValueEventListener{

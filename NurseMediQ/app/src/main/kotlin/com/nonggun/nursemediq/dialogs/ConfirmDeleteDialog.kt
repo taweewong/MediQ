@@ -16,6 +16,7 @@ class ConfirmDeleteDialog(activity: Activity, listener: OnClickDialogButton) {
     private val view = layoutInflater.inflate(R.layout.dialog_delete_queue, null)
     private val confirmDeleteButton = view.findViewById<TextView>(R.id.confirmDeleteButton)
     private val cancelDeleteButton = view.findViewById<TextView>(R.id.cancelDeleteButton)
+    private val message = view.findViewById<TextView>(R.id.deleteQueueMessage)
 
     init {
         builder.setView(view)
@@ -29,5 +30,9 @@ class ConfirmDeleteDialog(activity: Activity, listener: OnClickDialogButton) {
 
     fun show() {
         builder.show()
+    }
+
+    fun setMessage(text: String) {
+        message.text = text
     }
 }
