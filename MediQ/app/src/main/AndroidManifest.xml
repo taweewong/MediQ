@@ -9,13 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controllers.login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".controllers.login.LoginActivity" />
         <activity android:name=".controllers.register.RegisterProfileActivity" />
         <activity android:name=".controllers.register.RegisterNameActivity" />
         <activity android:name=".controllers.register.RegisterPasswordActivity" />
@@ -29,7 +23,13 @@
             android:name=".controllers.queue.InQueueActivity"
             android:launchMode="singleTask" />
         <activity android:name=".controllers.profile.ProfileActivity" />
-        <activity android:name=".controllers.splashscreen.SplashScreenActivity"></activity>
+        <activity android:name=".controllers.splashscreen.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
