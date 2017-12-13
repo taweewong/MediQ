@@ -90,6 +90,8 @@ object ClientQueueService {
         queue.name = String.format("%s %s", user.firstName, user.lastName)
         queue.userId = user.userId
         queue.type = APPLICATION.name
+        queue.queueId = queueId
+        queue.phoneNumber = user.phoneNumber
         getCurrentQueueNumber(callback = {
             queue.queueNumber = it
             databaseRef.child(queueId).setValue(queue)
