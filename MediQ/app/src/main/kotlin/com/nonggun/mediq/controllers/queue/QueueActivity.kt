@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.nonggun.mediq.R
 import com.nonggun.mediq.base.BaseActivity
+import com.nonggun.mediq.controllers.profile.ProfileActivity
 import com.nonggun.mediq.dialogs.QueueDialog
 import com.nonggun.mediq.facades.ClientQueueFacade
 import com.nonggun.mediq.models.User
@@ -21,6 +22,8 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
     private var availableQueueNumber = ""
     private lateinit var user: User
 
+    private val REQUEST_CODE = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queue)
@@ -33,6 +36,10 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
         confirmQueueText.setOnClickListener({
             createQueueDialog(user)
         })
+
+        profileImageView.setOnClickListener {
+            openProfileActivity(user)
+        }
     }
 
     override fun onGetPreviousQueueSuccess(previousQueueNumber: String) {
@@ -122,5 +129,21 @@ class QueueActivity : BaseActivity(), ClientQueueService.OnGetQueueDataListener 
         intent.putExtra(USER_PARCEL_KEY, user)
         startActivity(intent)
         finish()
+    }
+
+    private fun openProfileActivity(user: User) {
+        val intent = Intent(this, ProfileActivity::class.java)
+        intent.putExtra(USER_PARCEL_KEY, user)
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE) {
+            if (data != null) {
+                user = data.getParcelableExtra(USER_PARCEL_KEY)
+            }
+        }
     }
 }
