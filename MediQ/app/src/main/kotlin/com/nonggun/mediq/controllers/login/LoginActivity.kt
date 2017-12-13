@@ -1,5 +1,6 @@
 package com.nonggun.mediq.controllers.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,8 @@ import com.nonggun.mediq.base.BaseActivity
 import com.nonggun.mediq.controllers.queue.InQueueActivity
 import com.nonggun.mediq.controllers.queue.QueueActivity
 import com.nonggun.mediq.controllers.register.RegisterProfileActivity
+import com.nonggun.mediq.controllers.splashscreen.SplashScreenActivity.Companion.SHARE_USER_KEY
+import com.nonggun.mediq.controllers.splashscreen.SplashScreenActivity.Companion.SHARE_PREFS_NAME
 import com.nonggun.mediq.facades.UserFacade
 import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
@@ -40,6 +43,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
     }
 
     override fun onLoginPassed(user: User) {
+        saveUser(user)
         checkUserQueue(user)
     }
 
@@ -73,5 +77,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
 
     override fun onGetCurrentQueueNotFound(user: User) {
         sendUserDataToQueueActivity(user, QueueActivity::class.java)
+    }
+
+    private fun saveUser(user: User) {
+        val editor = getSharedPreferences(SHARE_PREFS_NAME, Context.MODE_PRIVATE).edit()
+        editor.putString(SHARE_USER_KEY, user.userId)
+        editor.apply()
     }
 }
