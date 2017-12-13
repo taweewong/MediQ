@@ -50,6 +50,10 @@ object QueryQueueService {
         databaseRef.child(queueId).setValue(queue)
     }
 
+    fun deleteQueue(queue: Queue) {
+        databaseRef.child(queue.queueId).removeValue()
+    }
+
     private fun getCurrentQueueNumber(callback: (queue: Int) -> Unit) {
         val currentQueueRef = FirebaseDatabase.getInstance().reference.child(CHILD_CURRENT_QUEUE)
         currentQueueRef.addListenerForSingleValueEvent(object : ValueEventListener{
