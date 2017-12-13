@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.nonggun.nursemediq.R
 import com.nonggun.nursemediq.adapter.QueueRecyclerAdapter
-import com.nonggun.nursemediq.dialog.AddQueueDialog
+import com.nonggun.nursemediq.dialogs.AddQueueDialog
 import com.nonggun.nursemediq.model.Queue
 import com.nonggun.nursemediq.service.WalkInQueueService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), WalkInQueueService.OnGetAllQueueComple
     }
 
     override fun onGetAllQueueSuccess(queues: ArrayList<Queue>) {
-        val adapter = QueueRecyclerAdapter(queues)
+        val adapter = QueueRecyclerAdapter(this, queues)
         queueRecyclerView.adapter = adapter
     }
 
