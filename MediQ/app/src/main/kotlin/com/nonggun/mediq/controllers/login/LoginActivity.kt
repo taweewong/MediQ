@@ -1,5 +1,6 @@
 package com.nonggun.mediq.controllers.login
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,16 +18,19 @@ import com.nonggun.mediq.models.User
 import com.nonggun.mediq.models.User.Key.USER_PARCEL_KEY
 import com.nonggun.mediq.services.ClientInQueueService
 import com.nonggun.mediq.services.LoginService
+import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLoginComplete,
         ClientInQueueService.OnGetUserQueueListener {
+    private lateinit var loadingDialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
 
+        loadingDialog = SpotsDialog(this, R.style.CustomSpotLoading)
         loginButton.setOnClickListener(this)
         registerText.setOnClickListener(this)
     }
@@ -35,6 +39,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
         when (view?.id) {
             R.id.registerText -> openActivity(RegisterProfileActivity().javaClass)
             R.id.loginButton -> {
+                loadingDialog.show()
                 val phoneNumber = phoneNumberEditText.text.toString()
                 val password = passwordEditText.text.toString()
                 UserFacade.login(this, phoneNumber, password, this)
@@ -43,11 +48,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener, LoginService.OnLogin
     }
 
     override fun onLoginPassed(user: User) {
+        loadingDialog.dismiss()
         saveUser(user)
         checkUserQueue(user)
     }
 
     override fun onLoginFailed(message: String) {
+        loadingDialog.dismiss()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
